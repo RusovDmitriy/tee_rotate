@@ -11,10 +11,9 @@ use writers::rotating_writer::RotatingWriter;
 use writers::single_writer::SingleWriter;
 
 fn main() -> Result<()> {
-    // Parse the command line arguments
     let options = cli::init();
 
-    // Create a vector of SingleWriter instances for each file in the options.files vector
+    // Create a vector of RotatingWriter instances for each file in the options.files vector
     let mut writers: Vec<GenericWriter> = options
         .files
         .iter()
