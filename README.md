@@ -19,5 +19,6 @@ while true; do echo "Message"; sleep 1; done | cargo run -- -a -r -s 55 log_file
  - `-a, --append`                           Append to the given FILEs, do not overwrite
  - `-r, --rotate`                           Rotate files with a maximum size of MAX_SIZE_BYTES
  - `-s, --max-size-bytes <max-size-bytes>`  Maximum size of each file in bytes
+ - `-n, --max-log-files <max-log-files>`    Maximum number of log files to keep
  - `--output-error[=<output-error>]`        Set write error behavior
  - `-V, --version`                          Print version

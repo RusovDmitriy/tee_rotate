@@ -16,6 +16,7 @@ pub struct Options {
     pub output_error: Option<OutputErrorMode>,
     pub rotate: bool,
     pub max_size_bytes: u64,
+    pub max_log_files: u64,
 }
 
 pub mod options {
@@ -24,6 +25,7 @@ pub mod options {
     pub const OUTPUT_ERROR: &str = "output-error";
     pub const ROTATE: &str = "rotate";
     pub const MAX_SIZE_BYTES: &str = "max-size-bytes";
+    pub const MAX_LOG_FILES: &str = "max-log-files";
 }
 
 fn command_factory() -> Command {
@@ -64,6 +66,13 @@ fn command_factory() -> Command {
                 .value_parser(value_parser!(u64)),
         )
         .arg(
+            Arg::new(options::MAX_LOG_FILES)
+                .long(options::MAX_LOG_FILES)
+                .short('n')
+                .help("Maximum number of log files to keep")
+                .value_parser(value_parser!(u64)),
+        )
+        .arg(
             Arg::new(options::FILE)
                 .action(ArgAction::Append)
                 .value_hint(clap::ValueHint::FilePath),
@@ -91,6 +100,10 @@ pub fn init() -> Options {
         max_size_bytes: match matches.get_one::<u64>(options::MAX_SIZE_BYTES) {
             Some(v) => *v,
             None => 1000,
+        },
+        max_log_files: match matches.get_one::<u64>(options::MAX_LOG_FILES) {
+            Some(v) => *v,
+            None => 10,
         },
         output_error: {
             if let Some(v) = matches.get_one::<String>(options::OUTPUT_ERROR) {

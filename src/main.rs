@@ -23,6 +23,7 @@ fn main() -> Result<()> {
                 options.append,
                 options.rotate,
                 options.max_size_bytes,
+                options.max_log_files,
             );
             let log_writer = Ok(GenericWriter::Rotating(rotating_writer.unwrap()));
             Some(log_writer)
